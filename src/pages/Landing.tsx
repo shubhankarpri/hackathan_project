@@ -2,6 +2,9 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Sparkles, Brain, Shield, Heart, Zap } from "lucide-react";
 
+/**
+ * Landing page component showcasing the application's features and core mission.
+ */
 export const Landing = () => {
     return (
         <div className="flex flex-col gap-20 py-10">
@@ -47,12 +50,14 @@ export const Landing = () => {
                 >
                     <Link
                         to="/check-in"
+                        aria-label="Start your daily wellness assessment"
                         className="px-8 py-4 bg-primary text-primary-foreground rounded-2xl font-bold text-lg shadow-xl shadow-primary/30 hover:scale-105 active:scale-95 transition-all"
                     >
                         Start Assessment
                     </Link>
                     <Link
                         to="/coach"
+                        aria-label="Start chatting with the AI Wellness Coach"
                         className="px-8 py-4 glass border border-primary/20 rounded-2xl font-bold text-lg hover:bg-accent transition-all"
                     >
                         Talk to AI Coach

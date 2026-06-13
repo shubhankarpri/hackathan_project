@@ -23,6 +23,9 @@ const moods: { label: Mood; icon: any; color: string }[] = [
     { label: "Exhausted", icon: Frown, color: "text-red-500 bg-red-500/10" },
 ];
 
+/**
+ * Mood Check-in component for tracking daily wellness metrics (mood, sleep, study).
+ */
 export const MoodCheckin = () => {
     const navigate = useNavigate();
     const [moodLogs, setMoodLogs] = useLocalStorage<MoodLog[]>("mood-logs", []);
@@ -128,6 +131,7 @@ export const MoodCheckin = () => {
                         </label>
                         <input
                             type="range" min="1" max="10"
+                            aria-label="Energy Level slider"
                             value={energyLevel} onChange={(e) => setEnergyLevel(parseInt(e.target.value))}
                             className="w-full h-3 bg-secondary rounded-lg appearance-none cursor-pointer accent-primary"
                         />
@@ -143,6 +147,7 @@ export const MoodCheckin = () => {
                         </label>
                         <input
                             type="range" min="1" max="10"
+                            aria-label="Focus Level slider"
                             value={focusLevel} onChange={(e) => setFocusLevel(parseInt(e.target.value))}
                             className="w-full h-3 bg-secondary rounded-lg appearance-none cursor-pointer accent-primary"
                         />
@@ -155,6 +160,7 @@ export const MoodCheckin = () => {
                 whileTap={{ scale: 0.98 }}
                 onClick={handleSubmit}
                 disabled={!selectedMood}
+                aria-label="Submit your wellness check-in"
                 className={`
           w-full py-6 rounded-3xl font-bold text-xl flex items-center justify-center gap-3 shadow-2xl transition-all
           ${selectedMood

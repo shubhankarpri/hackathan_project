@@ -10,6 +10,11 @@ export interface MoodLog {
     focusLevel: number; // 1-10
 }
 
+/**
+ * Converts a mood string to a numerical score for calculation.
+ * @param mood - The selected mood from the check-in.
+ * @returns A score from 20 to 100.
+ */
 export const getMoodScore = (mood: Mood): number => {
     switch (mood) {
         case "Excellent": return 100;
@@ -21,6 +26,11 @@ export const getMoodScore = (mood: Mood): number => {
     }
 };
 
+/**
+ * Calculates a weighted wellness score (0-100) based on mood, sleep, energy, and focus.
+ * @param log - The current daily check-in log.
+ * @returns A holistically calculated wellness index.
+ */
 export const calculateWellnessScore = (log: MoodLog): number => {
     const moodWeight = 0.4;
     const sleepWeight = 0.3;
@@ -43,6 +53,11 @@ export const calculateWellnessScore = (log: MoodLog): number => {
     return Math.round(total);
 };
 
+/**
+ * Determines the wellness category and associated color based on the total score.
+ * @param score - The 0-100 wellness index.
+ * @returns An object containing the label and Tailwind color class.
+ */
 export const getWellnessCategory = (score: number) => {
     if (score >= 85) return { label: "Excellent", color: "text-green-500" };
     if (score >= 70) return { label: "Good", color: "text-blue-500" };

@@ -8,6 +8,9 @@ interface Message {
     content: string;
 }
 
+/**
+ * AI Coach component providing an interactive chat interface for wellness support.
+ */
 export const Coach = () => {
     const [messages, setMessages] = useState<Message[]>([
         {

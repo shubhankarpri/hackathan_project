@@ -14,16 +14,20 @@ import {
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
+/**
+ * Navigation item component for the sidebar and mobile menu.
+ */
 const NavItem = ({ to, icon: Icon, children, active, onClick }: any) => (
     <Link
         to={to}
         onClick={onClick}
+        aria-label={`Navigate to ${children}`}
         className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 ${active
             ? "bg-primary text-primary-foreground shadow-lg shadow-primary/20"
             : "hover:bg-accent text-muted-foreground hover:text-accent-foreground"
             }`}
     >
-        <Icon size={20} />
+        <Icon size={20} aria-hidden="true" />
         <span className="font-medium">{children}</span>
     </Link>
 );
@@ -61,12 +65,14 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
                 <div className="flex items-center gap-2">
                     <button
                         onClick={() => setDarkMode(!darkMode)}
+                        aria-label="Toggle Dark Mode"
                         className="p-2 rounded-lg hover:bg-accent transition-colors"
                     >
                         {darkMode ? <Sun size={20} /> : <Moon size={20} />}
                     </button>
                     <button
                         onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+                        aria-label="Toggle Navigation Menu"
                         className="p-2 rounded-lg hover:bg-accent transition-colors"
                     >
                         {isSidebarOpen ? <X size={24} /> : <Menu size={24} />}
@@ -104,6 +110,7 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
                     <div className="absolute bottom-6 left-6 right-6">
                         <button
                             onClick={() => setDarkMode(!darkMode)}
+                            aria-label={`Switch to ${darkMode ? "Light" : "Dark"} Mode`}
                             className="w-full flex items-center gap-3 px-4 py-3 rounded-xl border border-border hover:bg-accent transition-all duration-200"
                         >
                             {darkMode ? <Sun size={20} /> : <Moon size={20} />}

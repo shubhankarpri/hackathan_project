@@ -26,9 +26,12 @@ import {
 import { format } from "date-fns";
 import { MotivationCard } from "../components/MotivationCard";
 
+/**
+ * Component for displaying a single statistical metric with an icon and color.
+ */
 const StatCard = ({ title, value, subvalue, icon: Icon, color }: any) => (
-    <div className="glass-card p-6 flex items-center gap-4">
-        <div className={`p-4 rounded-2xl ${color} bg-opacity-10 shadow-inner`}>
+    <div className="glass-card p-6 flex items-center gap-4" aria-label={`${title}: ${value}`}>
+        <div className={`p-4 rounded-2xl ${color} bg-opacity-10 shadow-inner`} aria-hidden="true">
             <Icon className={color.replace("bg-", "text-")} size={28} />
         </div>
         <div>
@@ -39,6 +42,9 @@ const StatCard = ({ title, value, subvalue, icon: Icon, color }: any) => (
     </div>
 );
 
+/**
+ * Main dashboard component showing wellness trends and statistics.
+ */
 export const Dashboard = () => {
     const [moodLogs] = useLocalStorage<MoodLog[]>("mood-logs", []);
 
@@ -128,8 +134,8 @@ export const Dashboard = () => {
             {/* Charts Section */}
             <section className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                 <div className="glass-card p-8 space-y-6">
-                    <h3 className="text-xl font-bold flex items-center gap-2"><TrendingUp className="text-primary" /> Wellness & Mood Trend</h3>
-                    <div className="h-80 w-full">
+                    <h3 className="text-xl font-bold flex items-center gap-2"><TrendingUp className="text-primary" aria-hidden="true" /> Wellness & Mood Trend</h3>
+                    <div className="h-80 w-full" aria-label="Area chart showing wellness and mood trends over time">
                         <ResponsiveContainer width="100%" height="100%">
                             <AreaChart data={dashboardData}>
                                 <defs>
@@ -149,8 +155,8 @@ export const Dashboard = () => {
                 </div>
 
                 <div className="glass-card p-8 space-y-6">
-                    <h3 className="text-xl font-bold flex items-center gap-2"><Activity className="text-accent" /> Study & Sleep Correlation</h3>
-                    <div className="h-80 w-full">
+                    <h3 className="text-xl font-bold flex items-center gap-2"><Activity className="text-accent" aria-hidden="true" /> Study & Sleep Correlation</h3>
+                    <div className="h-80 w-full" aria-label="Bar chart correlating study hours and sleep hours">
                         <ResponsiveContainer width="100%" height="100%">
                             <BarChart data={dashboardData}>
                                 <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="hsl(var(--border))" />

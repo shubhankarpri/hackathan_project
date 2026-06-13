@@ -60,22 +60,27 @@ const BreathingExercise = () => {
             <div className="flex gap-4">
                 <button
                     onClick={() => setIsActive(!isActive)}
+                    aria-label={isActive ? "Pause breathing exercise" : "Start breathing exercise"}
                     className={`px-8 py-3 rounded-2xl font-bold flex items-center gap-2 transition-all ${isActive ? "bg-accent text-white" : "bg-primary text-white"}`}
                 >
-                    {isActive ? <Pause size={20} /> : <Play size={20} />}
+                    {isActive ? <Pause size={20} aria-hidden="true" /> : <Play size={20} aria-hidden="true" />}
                     {isActive ? "Pause" : "Start Exercise"}
                 </button>
                 <button
                     onClick={() => { setIsActive(false); setPhase("Reset"); }}
+                    aria-label="Reset breathing exercise"
                     className="p-3 rounded-2xl glass border-primary/20 text-primary hover:bg-primary/10 transition-all"
                 >
-                    <RotateCcw size={24} />
+                    <RotateCcw size={24} aria-hidden="true" />
                 </button>
             </div>
         </div>
     );
 };
 
+/**
+ * Mindfulness component featuring interactive breathing exercises and focus tools.
+ */
 export const Mindfulness = () => {
     return (
         <div className="max-w-4xl mx-auto py-10 space-y-12">

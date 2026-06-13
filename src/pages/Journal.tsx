@@ -16,6 +16,10 @@ import {
     ShieldCheck
 } from "lucide-react";
 
+/**
+ * Journaling component that allows users to write thoughts and receive AI analysis.
+ * Uses local storage for persistence.
+ */
 export const Journal = () => {
     const navigate = useNavigate();
     const [journalEntries, setJournalEntries] = useLocalStorage<JournalEntry[]>("journal-entries", []);
@@ -65,6 +69,7 @@ export const Journal = () => {
                     <textarea
                         value={text}
                         onChange={(e) => setText(e.target.value)}
+                        aria-label="Journal entry textarea"
                         placeholder="I studied for 8 hours but I still feel anxious about my mock test..."
                         className="w-full h-80 bg-background/50 border-2 border-border/50 rounded-2xl p-6 text-lg focus:outline-none focus:border-primary transition-colors resize-none leading-relaxed"
                     />
@@ -73,6 +78,7 @@ export const Journal = () => {
                         <button
                             onClick={handleAnalyze}
                             disabled={isAnalyzing || !text.trim()}
+                            aria-label={isAnalyzing ? "Analyzing results, please wait" : "Run AI journal analysis"}
                             className={`
                 flex-1 py-4 rounded-2xl font-bold text-lg flex items-center justify-center gap-3 transition-all
                 ${!text.trim() || isAnalyzing
@@ -82,12 +88,12 @@ export const Journal = () => {
                         >
                             {isAnalyzing ? (
                                 <>
-                                    <Loader2 className="animate-spin" />
+                                    <Loader2 className="animate-spin" aria-hidden="true" />
                                     Gemini is thinking...
                                 </>
                             ) : (
                                 <>
-                                    <Sparkles size={20} />
+                                    <Sparkles size={20} aria-hidden="true" />
                                     Analyze Journal
                                 </>
                             )}

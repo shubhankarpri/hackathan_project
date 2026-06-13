@@ -1,7 +1,12 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
-const API_KEY = import.meta.env.VITE_GEMINI_API_KEY || "AIzaSyBvT54iGv-8DqV-E4RZEhSRFeCiQHLTCnU";
-const genAI = new GoogleGenerativeAI(API_KEY);
+const API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
+
+if (!API_KEY) {
+    console.error("VITE_GEMINI_API_KEY is missing! Please check your .env file.");
+}
+
+const genAI = new GoogleGenerativeAI(API_KEY || "");
 
 const model = genAI.getGenerativeModel({ model: "gemini-flash-latest" });
 
@@ -16,6 +21,11 @@ export interface AnalysisResult {
     triggers: string[];
 }
 
+/**
+ * Analyzes a journal entry and returns a structured emotional assessment.
+ * @param text - The journal entry content.
+ * @returns A structured AnalysisResult object.
+ */
 export const analyzeJournal = async (text: string): Promise<AnalysisResult> => {
     // Using a more specific prompt for JSON output
     const prompt = `
@@ -50,6 +60,12 @@ export const analyzeJournal = async (text: string): Promise<AnalysisResult> => {
     }
 };
 
+/**
+ * Communicates with the AI Wellness Coach to get empathetic feedback.
+ * @param userMessage - The user's input message.
+ * @param history - The current chat history.
+ * @returns The AI's response string.
+ */
 export const getCoachResponse = async (userMessage: string, history: { role: string; content: string }[]) => {
     const chat = model.startChat({
         history: history.map(h => ({ role: h.role === "user" ? "user" : "model", parts: [{ text: h.content }] })),
@@ -69,6 +85,11 @@ export const getCoachResponse = async (userMessage: string, history: { role: str
     }
 };
 
+/**
+ * Generates a daily motivational quote based on the user's current mood.
+ * @param mood - The current mood string.
+ * @returns A motivational quote string.
+ */
 export const getDailyMotivation = async (mood: string) => {
     const prompt = `Generate a short, powerful motivational quote for a student who is feeling ${mood}. The student is preparing for competitive exams. Keep it to one or two sentences.`;
     try {
