@@ -56,7 +56,7 @@ export const MotivationCard = () => {
                         className="space-y-4"
                     >
                         <Quote className="mx-auto text-primary/30" size={40} />
-                        <p className="text-2xl font-bold tracking-tight leading-snug">
+                        <p data-testid="motivation-quote" className="text-2xl font-bold tracking-tight leading-snug">
                             {isLoading ? "Generating your personlized spark..." : motivation}
                         </p>
                     </motion.div>
